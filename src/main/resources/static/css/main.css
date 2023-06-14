@@ -1,0 +1,40 @@
+@import url(./bootstrap.min.css);
+@import url(./config.css);
+@import url(./custom.css);
+@import url(./responsive.css);
+
+#header{
+    background-color: #fff;
+}
+
+#conteudo{
+    background-image: linear-gradient(#fff,#1498d5);
+}
+
+#grupos{
+    background-image: linear-gradient(#1498d5,#1498d5);
+    padding-bottom: 100px;
+}
+
+#infos{
+    background-image: linear-gradient(#1498d5,#1498d5d0,#1487bcd0,#1498d5d0,#1498d5d0,#1180b4);
+}
+
+#footer{
+    background-color: #1180b4;
+}
+
+#space{
+    padding: 500px linear-gradient(#fff,#1498d5);
+}
+
+#configuracoes{
+    background-image: linear-gradient(#fff,#1498d5,#1498d5);
+    padding-top: 200px;
+    padding-bottom: 200px;
+}
+
+#cheio{
+    height: 100%;
+    margin: 0;
+}

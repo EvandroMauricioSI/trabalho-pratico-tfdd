@@ -1,0 +1,15 @@
+:root {
+    --primary: #1498d5;
+    --secundary: #bfe6f9;
+    
+}
+
+.btn-primary {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #1498d5;
+}
+
+.btn-primary:hover {
+    background-color: #bfe6f9;
+}

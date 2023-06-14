@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RideUFF</title>
+    <!--CSS-->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <style>
+      .text-small {
+          font-size: 0.9rem;
+        }
+        
+        .chat-box {
+          height: 300px;
+          overflow-y: scroll;
+        }
+        
+        .rounded-lg {
+          border-radius: 0.5rem;
+        }
+        
+        input::placeholder {
+          font-size: 0.9rem;
+          color: #999;
+        }
+    </style>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <div id="header">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <a class="navbar-brand" href="/home">
+            <img src="/imagens/logo1.png" class="img-fluid">
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/home">Pagina Inicial</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Como funciona</a>
+              </li>
+            </ul>
+          </div>
+          <div class="d-flex me-auto mb-2 mb-md-0">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown" th:each="perfil : ${perfil}">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:each="usuario : ${usuario}">
+                    <span th:text="${usuario.nome}"></span> <i class="bi bi-person-circle"></i>
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <div class="card-header mt-0">Trocar perfil:</div>
+                    <li th:if="${perfil.tipoperfil == 1}"><a class="dropdown-item mt-2 active" href="/virarPassageiro">Passageiro</a></li>
+                    <li th:if="${perfil.tipoperfil == 1}"><a class="dropdown-item" href="/virarMotorista">Motorista</a></li>
+                    <li th:if="${perfil.tipoperfil == 2}"><a class="dropdown-item mt-2" href="/virarPassageiro">Passageiro</a></li>
+                    <li th:if="${perfil.tipoperfil == 2}"><a class="dropdown-item active" href="/virarMotorista">Motorista</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="/config">Configurações</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/logout" sec:authorize="isAuthenticated()">Sair</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <!-- FIM DO HEADER -->
+
+    <!-- INICIO DA CORRIDA -->
+    <div id="configuracoes">
+      <div class="container px-4">
+        <div class="row gx-5">
+        
+          <div class="col col-lg-6 col-sm-12 mb-3">
+            <div class="p-3 border rounded-2 bg-light shadow p-3 mb-5 bg-body position-relative" id="cheio"  th:each="grupo : ${grupo}" >
+              <div class="row">
+                <div class="col"><h2>Sua viagem</h2></div>
+                <div class="col"><p class="text-center mt-1">Tempo de Chegada:</p></div>
+              </div>
+              <div class="position-absolute top-0 end-0 border border-2 rounded-2 border-dark text-white bg-dark" th:if="${grupo.tipogrupo == 1}">U</div>
+              <div class="position-absolute top-0 end-0 border border-2 rounded-2 border-dark text-white bg-dark" th:if="${grupo.tipogrupo == 2}">M</div>
+              
+              <div class="list-group">
+                <a class="list-group-item list-group-item-action" aria-current="true">
+                
+                  <div class="row g-0" th:if="${grupo.perfil1 != null}">
+                    <div class="col-3">
+                      <img th:src="${grupo.perfil1.usuario.fotoperfil}" class="img-fluid rounded-start bg-dark rounded-circle" alt="..." style="height:100px; width:100px;">
+                    </div>
+                    <div class="col-5">
+                      <div class="card-body">
+                        <h5 class="card-title"><span th:text="${grupo.perfil1.usuario.nome}"></span></h5>
+                        <p class="card-text"><span th:text="${grupo.perfil1.usuario.curso}"></span></p>
+                      </div>
+                    </div>
+                    <small class="col-4 text-end fs-3 mt-3"><span th:text="${grupo.perfil1.notapassageiro}"></span> <i class="bi bi-star"></i></small>
+                  </div>
+                  
+                  <div class="row g-0" th:each="grupo : ${grupo}" th:if="${grupo.perfil2 != null}">
+                    <div class="col-3">
+                      <img th:src="${grupo.perfil2.usuario.fotoperfil}" class="img-fluid rounded-start bg-dark rounded-circle" alt="..." style="height:100px; width:100px;">
+                    </div>
+                    <div class="col-5">
+                      <div class="card-body">
+                        <h5 class="card-title"><span th:text="${grupo.perfil2.usuario.nome}"></span></h5>
+                        <p class="card-text"><span th:text="${grupo.perfil2.usuario.curso}"></span></p>
+                      </div>
+                    </div>
+                    <small class="col-4 text-end fs-3 mt-3"><span th:text="${grupo.perfil2.notapassageiro}"></span> <i class="bi bi-star"></i></small>
+                  </div> 
+                  
+                  <div class="row g-0" th:each="grupo : ${grupo}" th:if="${grupo.perfil3 != null}">
+                    <div class="col-3">
+                      <img th:src="${grupo.perfil3.usuario.fotoperfil}" class="img-fluid rounded-start bg-dark rounded-circle" alt="..." style="height:100px; width:100px;">
+                    </div>
+                    <div class="col-5">
+                      <div class="card-body">
+                        <h5 class="card-title"><span th:text="${grupo.perfil3.usuario.nome}"></span></h5>
+                        <p class="card-text"><span th:text="${grupo.perfil3.usuario.curso}"></span></p>
+                      </div>
+                    </div>
+                    <small class="col-4 text-end fs-3 mt-3"><span th:text="${grupo.perfil3.notapassageiro}"></span> <i class="bi bi-star"></i></small>
+                  </div> 
+                   <div class="row g-0" th:each="grupo : ${grupo}" th:if="${grupo.perfil4 != null}">
+                    <div class="col-3">
+                      <img th:src="${grupo.perfil4.usuario.fotoperfil}" class="img-fluid rounded-start bg-dark rounded-circle" alt="..." style="height:100px; width:100px;">
+                    </div>
+                    <div class="col-5">
+                      <div class="card-body">
+                        <h5 class="card-title"><span th:text="${grupo.perfil4.usuario.nome}"></span></h5>
+                        <p class="card-text"><span th:text="${grupo.perfil4.usuario.curso}"></span></p>
+                      </div>
+                    </div>
+                    <small class="col-4 text-end fs-3 mt-3"><span th:text="${grupo.perfil4.notapassageiro}"></span> <i class="bi bi-star"></i></small>
+                  </div> 
+                   <div class="row g-0" th:each="grupo : ${grupo}" th:if="${grupo.perfil5 != null}">
+                    <div class="col-3">
+                      <img th:src="${grupo.perfil5.usuario.fotoperfil}" class="img-fluid rounded-start bg-dark rounded-circle" alt="..." style="height:100px; width:100px;">
+                    </div>
+                    <div class="col-5">
+                      <div class="card-body">
+                        <h5 class="card-title"><span th:text="${grupo.perfil5.usuario.nome}"></span></h5>
+                        <p class="card-text"><span th:text="${grupo.perfil5.usuario.curso}"></span></p>
+                      </div>
+                    </div>
+                    <small class="col-4 text-end fs-3 mt-3"><span th:text="${grupo.perfil5.notapassageiro}"></span> <i class="bi bi-star"></i></small>
+                  </div> 
+
+                </a>                          
+              </div>
+              
+              <div class="d-grid gap-2 d-md-flex position-absolute bottom-0 end-0 pe-3">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  Informações da Corrida
+                </button>
+                <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom" th:each="tamanho : ${tamanho}">Mensagens do grupo <span class="badge bg-primary rounded-pill" th:text="${tamanho}"></span></button>
+                <a th:href="${(#mvc.url('GC#sairGrupo').arg(0, grupo.idgrupo)).build()}"><button class="btn btn-primary" type="button" th:if="${perfil.idperfil} != ${grupo.perfil1.idperfil}">Sair</button></a>        
+                <a th:href="${(#mvc.url('GC#finalizarCorrida').arg(0, grupo.idgrupo)).build()}"><button class="btn btn-primary" type="button" th:if="${perfil.idperfil} == ${grupo.perfil1.idperfil}">Finalizar Corrida</button></a>
+                
+              </div>
+
+            </div>
+          </div>
+          
+          
+          <div class="col col-lg-6 col-sm-12 mb-3">
+            <div class="p-3 border rounded-2 bg-light shadow p-3 mb-5 bg-body" id="cheio">
+              <div class="mapouter"><div class="gmap_canvas"><iframe class="gmap_iframe" width="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=398&amp;height=530&amp;hl=en&amp;q=UFF&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe><a href="https://www.kokagames.com/fnf-friday-night-funkin-mods/">Friday Night Funkin Mods</a></div><style>.mapouter{position:relative;text-align:right;width:100%;height:530px;}.gmap_canvas {overflow:hidden;background:none!important;width:100%;height:530px;}.gmap_iframe {height:530px!important;}</style></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Informações da Corrida</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" th:each="grupo : ${grupo}">
+            <form>
+              <div class="mb-3">
+                <label for="inputPreço" class="form-label">Preço</label>
+                <input type="text" class="form-control" name="preco" th:value="${grupo.preco}" readonly>
+              </div>
+              <div class="mb-3">
+                <label for="inputTipo" class="form-label">Tipo do Grupo</label>
+                <input type="text" class="form-control" name="tipogrupo" th:if="${grupo.tipogrupo == 1}" value="Uber" readonly>
+                <input type="text" class="form-control" name="tipogrupo" th:if="${grupo.tipogrupo == 2}" value="Motorista/Carona" readonly>
+              </div>
+              <div class="mb-3">
+                <label for="inputDescricao" class="form-label">Descrição</label>
+                <input type="text" class="form-control" name="descricao" th:value="${grupo.descricao}" readonly>
+              </div>
+              <div class="row g-3" th:if="${grupo.tipogrupo == 2}">
+                <div class="col-md-7">
+                  <label for="inputCarro" class="form-label">Carro</label>
+                  <input type="text" class="form-control" name="carro" th:value="${grupo.perfil1.modelocarro}" readonly>
+                </div>
+                <div class="col-md-5">
+                  <label for="inputPlaca" class="form-label">Placa</label>
+                  <input type="text" class="form-control" name="placacarro" th:value="${grupo.perfil1.placacarro}" readonly>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Offcanvas -->
+    <div class="offcanvas offcanvas-bottom h-auto" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel" th:each="perfil : ${perfil}">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasBottomLabel">Mensagens do grupo</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body small">
+        <!-- Chat Box-->
+       
+        <div class="col-12 px-0">
+          <div class="px-4 py-5 chat-box bg-white">
+            <!-- Sender Message-->
+            <div th:each="mensagem : ${mensagens}">
+            <div class="media w-50 mb-3" th:if="${mensagem.perfil} != ${perfil}"><img th:src="${mensagem.perfil.usuario.fotoperfil}" alt="user" width="50" class="rounded-circle">
+              <div class="media-body ml-3" >
+                <div class="bg-light rounded py-2 px-3 mb-2">
+                  <p class="text-small mb-0 text-muted"><span th:text="${mensagem.conteudo}"></span></p>
+                </div>
+                <p class="small text-muted"><span th:text="${mensagem.datacriacao}"></span></p>
+              </div>
+            </div>
+
+            <!-- Reciever Message-->
+            <div class="media d-grid gap-2 d-md-flex justify-content-md-end" th:if="${mensagem.perfil} == ${perfil}">
+              <div class="media-body">
+                <div class="bg-primary rounded py-2 px-3 mb-2">
+                  <p class="text-small mb-0 text-white"><span th:text="${mensagem.conteudo}"></span></p>
+                </div>
+                <p class="small text-muted"><span th:text="${mensagem.datacriacao}"></span></p>
+              </div>
+            </div>
+            </div>
+
+          </div>
+
+          <!-- Typing area -->
+          <form action="?enviarmensagem" class="bg-light" method="post" th:each="perfil : ${perfil}">
+            <div class="input-group">
+              <input type="text" placeholder="Digite uma mensagem" aria-describedby="button-addon2" class="form-control rounded-0 border-0 py-4 bg-light" name="conteudo">
+              <input type="hidden" name="idperfil" th:value="${perfil.idperfil}">
+              <div class="input-group-append">
+                <button id="button-addon2" type="submit" class="btn btn-link"> <i class="fa fa-paper-plane"></i></button>
+              </div>
+            </div>
+          </form>     
+        </div>
+      </div>
+    </div>
+
+    
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Criar nova corrida</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form class="row g-3">
+              <div class="col-md-6">
+                <label for="inputState" class="form-label">Tipo de Grupo</label>
+                <select id="inputState" class="form-select">
+                  <option selected>Motorista</option>
+                  <option>Uber</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="inputPreco" class="form-label">Preço</label>
+                <input type="email" class="form-control" id="inputPreco">
+              </div>
+              <div class="col-md-6">
+                <label for="inputOrigem" class="form-label">Local de Partida</label>
+                <input type="text" class="form-control" id="inputOrigem">
+              </div>
+              <div class="col-md-6">
+                <label for="inputDestino" class="form-label">Local de Destino</label>
+                <input type="text" class="form-control" id="inputDestino">
+              </div>
+              <div class="col-md-6">
+                <label for="inputPassword4" class="form-label">Horário de Partida</label>
+                <input type="time" class="col-3 form-control" id="inputPreco">
+              </div>
+              <div class="col-md-6">
+                <label for="inputPart" class="form-label">Participantes</label>
+                <input type="number" class="form-control" min="2" max="6" id="inputPart">
+              </div>
+              <div class="input-group">
+                <span class="input-group-text">Descrição</span>
+                <textarea class="form-control" aria-label="With textarea"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary">Criar Grupo</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- INICIO DO FOOTER -->
+    <div id="footer">
+      <div class="container">
+        <footer class="py-5">
+          <div class="row">
+            <h5 class="text-white">Mais Informações</h5>
+            <div class="col-4">
+              <ul class="nav flex-column">
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white" id="passar">Como Funciona</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white" id="passar">Empresa</a></li>
+              </ul>
+            </div>
+      
+            <div class="col-3">
+              <ul class="nav flex-column">
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white" id="passar">Contato</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white" id="passar">Termos de Uso</a></li>
+              </ul>
+            </div>
+      
+            <div class="col-4 offset-1">
+              <ul class="nav flex-column">
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white" id="passar">Criadores</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white" id="passar">UFF</a></li>
+              </ul>
+            </div>
+          </div>
+      
+          <div class="d-flex justify-content-between py-4 my-4">
+            <ul class="list-unstyled d-flex">
+              <li class="ms-3"><a class="link-dark" href="#" id="passar"><i class="bi bi-instagram text-white fs-1"></i></a></li>
+              <li class="ms-3"><a class="link-dark" href="#" id="passar"><i class="bi bi-facebook text-white fs-1"></i></a></li>
+              <li class="ms-3"><a class="link-dark" href="#" id="passar"><i class="bi bi-twitter text-white fs-1"></i></a></li>
+              <li class="ms-3"><a class="link-dark" href="#" id="passar"><i class="bi bi-youtube text-white fs-1"></i></a></li>
+              <li class="ms-3"><a class="link-dark" href="#" id="passar"><i class="bi bi-reddit text-white fs-1"></i></a></li>
+              <li class="ms-3"><a class="link-dark" href="#" id="passar"><i class="bi bi-linkedin text-white fs-1"></i></a></li>
+            </ul>
+            <ul class="list-unstyled d-flex">
+              <li class="ms-3">
+                <a href="#"><img src="/imagens/apple-badge.png" style="height: 50px; width: 140px;"></a>
+              </li>
+              <li class="ms-3">
+                <a href="#"><img src="/imagens/google-badge.png" style="height: 50px; width: 140px;"></a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="d-flex justify-content-between py-4 my-4 border-top">
+            <p class="text-white">&copy; 2021 Ride UFF. Todos direitos reservados.</p>
+            <ul class="list-unstyled d-flex">
+              <li class="ms-3"><a class="link-dark" href="#" id="passar"><img src="/imagens/UFF-White-Logo.png" style="height: 163px; width: 163px;"></a></li>
+              <li class="ms-3"><a class="link-dark" href="#" id="passar"><img src="/imagens/IC-Logo.png" style="height: 117px; width: 163px;"></a></li>
+            </ul>
+          </div>
+        </footer>
+      </div>
+    </div>
+    <!-- FIM DO FOOTER -->
+    
+    <!--JS-->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="/js/bootstrap.min.js"></script>
+  </body>
+</html>

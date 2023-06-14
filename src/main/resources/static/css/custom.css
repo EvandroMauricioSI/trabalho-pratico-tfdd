@@ -1,0 +1,63 @@
+body,
+html{
+    font-family: 'Roboto', sans-serif;
+}
+
+#header{
+    width: 100%;
+    background-color: transparent;
+    transition: background ease-out 0.2s;
+}
+
+#header .navbar-collapse {
+    width: auto;
+}
+
+#header .nav-link{
+    font-weight: 300;
+    padding-left: 0;
+    padding-right: 0;
+    color: black;
+    border-bottom: solid 4px transparent;
+}
+
+#header .nav-link:hover{
+    border-bottom: solid 4px var(--primary);
+    color: var(--primary);
+}
+
+#bloco1{
+    background-color: transparent;
+    border-radius: 10px;
+    margin-bottom: 50px;
+    margin-right: 20px;
+}
+
+#bloco1 h3{
+    color: black;
+}
+
+#bloco1 button{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#bloco2{
+    background-color: transparent;
+    border-radius: 10px;
+    margin-bottom: 50px;
+}
+
+#bloco2 div{
+    padding: 10px;
+}
+
+#bloco2 h3{
+    margin-top: 20px;
+    text-transform: uppercase;
+}
+
+#bloco2 p{
+    font-weight: 300;
+    text-align: justify;
+}
