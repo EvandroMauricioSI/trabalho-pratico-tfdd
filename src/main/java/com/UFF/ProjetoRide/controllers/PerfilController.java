@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.UFF.ProjetoRide.models.Grupo;
 import com.UFF.ProjetoRide.models.Perfil;
@@ -24,7 +25,7 @@ public class PerfilController {
 	PerfilDAO perfildao = new PerfilDAO();
 	GrupoDAO grupodao = new GrupoDAO();
 	
-	@RequestMapping(value="/virarMotorista", method=RequestMethod.GET)
+  @GetMapping("/virarMotorista")
 	public String virarMotorista(Principal principal) {
 		
 		List<Usuario> listausuario = usuariodao.buscarUsuarioPeloEmail(principal.getName());
@@ -39,7 +40,8 @@ public class PerfilController {
 		
 		return "redirect:/home";
 	}
-	@RequestMapping(value="/virarPassageiro", method=RequestMethod.GET)
+  
+  @GetMapping("/virarPassageiro")
 	public String virarPassageiro(Principal principal) {
 		
 		List<Usuario> listausuario = usuariodao.buscarUsuarioPeloEmail(principal.getName());

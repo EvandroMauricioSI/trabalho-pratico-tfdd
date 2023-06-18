@@ -1,6 +1,9 @@
 
 package com.UFF.ProjetoRide.models;
 
+import org.hibernate.tool.schema.SchemaToolingLogging;
+import org.jboss.logging.Logger;
+
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -103,7 +106,7 @@ public class Grupo implements Serializable {
             this.datacriacao = new SimpleDateFormat("yyyy-MM-dd").parse(datacriacao);
         } catch (ParseException e) {
             e.printStackTrace();
-        };
+        }
 	}
 	public Date getDatafinalizacao() {
 		return datafinalizacao;

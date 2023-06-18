@@ -15,7 +15,7 @@
       <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
           <a class="navbar-brand" href="/home">
-            <img src="/imagens/logo1.png" class="img-fluid">
+            <img src="/imagens/logo1.png" class="img-fluid" alt="logo">
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -115,7 +115,7 @@
               <div class="col-lg-3 col-md-4 col-sm-6 mt-2 mb-2 align-items-stretch" th:each="grupo : ${grupos}" th:if="${grupo.datafinalizacao} == null">
                 <div class="d-flex flex-row border rounded position-relative border-dark" th:if="${grupo.qtdatual} < ${grupo.qtdparticipantes} or ${perfil} == ${grupo.perfil1} or ${perfil} == ${grupo.perfil2} or ${perfil} == ${grupo.perfil3} or ${perfil} == ${grupo.perfil4} or ${perfil} == ${grupo.perfil5}">
                   <div class="p-0 w-25 align-self-center">
-                    <img th:src="${grupo.perfil1.usuario.fotoperfil}" class="img-thumbnail border-0 rounded-circle"/>
+                    <img th:src="${grupo.perfil1.usuario.fotoperfil}" class="img-thumbnail border-0 rounded-circle" alt="usuario"/>
                   </div>
                   <div class="position-absolute top-0 end-0 border border-2 border-dark text-white bg-dark" th:if="${grupo.tipogrupo == 1}">U</div>
                   <div class="position-absolute top-0 end-0 border border-2 border-dark text-white bg-dark" th:if="${grupo.tipogrupo == 2}">M</div>
@@ -141,7 +141,7 @@
               <div class="col-lg-3 col-md-4 col-sm-6 mt-2 mb-2 align-items-stretch" th:each="grupo : ${grupos}" th:if="${grupo.datafinalizacao} == null and ${grupo.qtdatual} < ${grupo.qtdparticipantes}">
                 <div class="d-flex flex-row border rounded position-relative border-dark">
                   <div class="p-0 w-25 align-self-center">
-                    <img th:src="${grupo.perfil1.usuario.fotoperfil}" class="img-thumbnail border-0 rounded-circle"/>
+                    <img th:src="${grupo.perfil1.usuario.fotoperfil}" class="img-thumbnail border-0 rounded-circle" alt="usuario"/>
                   </div>
                   <div class="position-absolute top-0 end-0 border border-2 border-dark text-white bg-dark" th:if="${grupo.tipogrupo == 1}">U</div>
                   <div class="position-absolute top-0 end-0 border border-2 border-dark text-white bg-dark" th:if="${grupo.tipogrupo == 2}">M</div>
@@ -287,10 +287,10 @@
             </ul>
             <ul class="list-unstyled d-flex">
               <li class="ms-3">
-                <a href="#"><img src="/imagens/apple-badge.png" style="height: 50px; width: 140px;"></a>
+                <a href="#"><img src="/imagens/apple-badge.png" style="height: 50px; width: 140px;" alt="apple logo"></a>
               </li>
               <li class="ms-3">
-                <a href="#"><img src="/imagens/google-badge.png" style="height: 50px; width: 140px;"></a>
+                <a href="#"><img src="/imagens/google-badge.png" style="height: 50px; width: 140px;" alt="google logo"></a>
               </li>
             </ul>
           </div>
@@ -298,8 +298,8 @@
           <div class="d-flex justify-content-between py-4 my-4 border-top">
             <p class="text-white">&copy; 2021 Ride UFF. Todos direitos reservados.</p>
             <ul class="list-unstyled d-flex">
-              <li class="ms-3"><a class="link-dark" href="#" id="passar"><img src="/imagens/UFF-White-Logo.png" style="height: 163px; width: 163px;"></a></li>
-              <li class="ms-3"><a class="link-dark" href="#" id="passar"><img src="/imagens/IC-Logo.png" style="height: 117px; width: 163px;"></a></li>
+              <li class="ms-3"><a class="link-dark" href="#" id="passar"><img src="/imagens/UFF-White-Logo.png" style="height: 163px; width: 163px;" alt="uff logo"></a></li>
+              <li class="ms-3"><a class="link-dark" href="#" id="passar"><img src="/imagens/IC-Logo.png" style="height: 117px; width: 163px;" alt="ic logo"></a></li>
             </ul>
           </div>
         </footer>

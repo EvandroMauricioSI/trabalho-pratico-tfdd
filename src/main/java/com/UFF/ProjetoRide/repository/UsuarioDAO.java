@@ -75,9 +75,10 @@ public class UsuarioDAO {
     
     public List<Usuario> buscarUsuarioPeloEmail(String email) {
         
-    	String jpqlQuery = "SELECT u FROM Usuario u WHERE email='"+email+"'";
+    	String jpqlQuery = "SELECT u FROM Usuario u WHERE email= :email ";
         em = JPAUtil.getEM();
         Query query = em.createQuery(jpqlQuery);
+        query.setParameter("email", email);
         List<Usuario> u = query.getResultList();
         em.close();
         return u;

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.UFF.ProjetoRide.models.Grupo;
 import com.UFF.ProjetoRide.models.Mensagem;
@@ -29,7 +30,7 @@ public class GrupoController {
 	GrupoDAO grupodao = new GrupoDAO();
 	MensagemDAO mensagemdao = new MensagemDAO();
 	
-	@RequestMapping(value="/home", method=RequestMethod.GET)
+  @GetMapping("/home")
 	public ModelAndView listaGruposIndex(Principal principal){
 		
 		ModelAndView mv = new ModelAndView("home");
@@ -78,7 +79,8 @@ public class GrupoController {
 
 		return "redirect:/grupo/"+grupo.getIdgrupo();
 	}
-	@RequestMapping(value="/grupo/{codigo}", method=RequestMethod.GET)
+  
+  @GetMapping("/grupo/{codigo}")
 	public ModelAndView entrarGrupo(@PathVariable("codigo") int codigo, Principal principal){
 		
 		List<Usuario> listausuario = usuariodao.buscarUsuarioPeloEmail(principal.getName());
@@ -147,7 +149,8 @@ public class GrupoController {
 		return mv;	
 		
 	}
-	@RequestMapping(value="/sairGrupo/{codigo}", method=RequestMethod.GET)
+  
+  @GetMapping("/sairGrupo/{codigo}")
 	public String sairGrupo(@PathVariable("codigo") int codigo, Principal principal) {
 		
 		List<Usuario> listausuario = usuariodao.buscarUsuarioPeloEmail(principal.getName());
@@ -190,7 +193,8 @@ public class GrupoController {
 	
 		return "redirect:/home";
 	}
-	@RequestMapping(value="/finalizarCorrida/{codigo}", method=RequestMethod.GET)
+  
+  @GetMapping("/finalizarCorrida/{codigo}")
 	public String finalizarCorrida(@PathVariable("codigo") int codigo) {
 		
 		Grupo grupo = grupodao.visualizarGrupo(codigo);

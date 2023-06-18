@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.UFF.ProjetoRide.models.Carteira;
 import com.UFF.ProjetoRide.models.Perfil;
@@ -29,7 +30,7 @@ public class UsuarioController {
 	PerfilDAO perfildao = new PerfilDAO();
 	CarteiraDAO carteiradao = new CarteiraDAO();
 	
-	@RequestMapping(value="/login", method=RequestMethod.GET)
+  @GetMapping("/login")
 	public String paginaLogin() {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -98,7 +99,8 @@ public class UsuarioController {
 		
 		return "redirect:/config";
 	}
-	@RequestMapping(value = "/usuarios", method = RequestMethod.GET)
+  
+  @GetMapping("/usuarios")
 	public @ResponseBody String listAllUsuarios(){
 	    ModelAndView modelAndView = new ModelAndView();
 	    modelAndView.addObject("usuario", new Usuario());

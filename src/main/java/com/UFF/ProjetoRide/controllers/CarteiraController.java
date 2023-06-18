@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.UFF.ProjetoRide.models.Carteira;
 import com.UFF.ProjetoRide.models.Grupo;
@@ -27,7 +28,7 @@ public class CarteiraController {
 	GrupoDAO grupodao = new GrupoDAO();
 	MensagemDAO mensagemdao = new MensagemDAO();
 
-	@RequestMapping(value="/config", method=RequestMethod.GET)
+  @GetMapping("/config")
 	public ModelAndView config(Principal principal) {
 		
 		ModelAndView mv = new ModelAndView("config");

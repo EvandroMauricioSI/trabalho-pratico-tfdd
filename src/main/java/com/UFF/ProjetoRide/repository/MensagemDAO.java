@@ -50,9 +50,10 @@ public class MensagemDAO {
     
     public List<Mensagem> buscarMensagemDoGrupo(int idgrupo) {
     
-      String jpqlQuery = "SELECT m FROM Mensagem m WHERE grupo_idgrupo='"+idgrupo+"' ORDER BY m.datacriacao";
+      String jpqlQuery = "SELECT m FROM Mensagem m WHERE grupo_idgrupo= :id ORDER BY m.datacriacao";
       em = JPAUtil.getEM();
       Query query = em.createQuery(jpqlQuery);
+      query.setParameter("id", idgrupo);
       List<Mensagem> m = query.getResultList();
       em.close();
       return m;
