@@ -1,6 +1,7 @@
 package com.UFF.ProjetoRide.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 import com.UFF.ProjetoRide.models.Grupo;
@@ -13,9 +14,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 //import java.security.Principal;
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -96,6 +100,30 @@ public class CarteiraControllerTest {
         verify(mockCarteiraDAO, times(1)).visualizarCarteira(idcarteira);
         verify(mockCarteiraDAO, times(1)).atualizarCarteira(carteira);
 
+    }
+
+    @Test
+    public void testConfig() {
+
+        String email = "sbrubbles@gmail.com";
+        List<Usuario> listUsuario = new ArrayList<Usuario>();
+        Usuario user = new Usuario();
+
+        doReturn(listUsuario).when(mockUsuarioDAO).buscarUsuarioPeloEmail(anyString());
+        doReturn(user).when(mockUsuarioDAO).findUsingEnhancedForLoop(anyString(), Mockito.<Usuario>anyList());
+        doReturn(perfilMock).when(mockPerfilDAO).visualizarPerfil(anyInt());
+        doReturn(carteiraMock).when(mockCarteiraDAO).visualizarCarteira(anyInt());
+        doReturn(listGrupoMock).when(mockGrupoDAO).buscarGrupoPorPerfil(anyInt());
+
+        assertNotNull(carteiraController.config(new PrincipalMock()));
+
+    }
+
+    public class PrincipalMock implements Principal {
+        @Override
+        public String getName() {
+            return "testando";
+        }
     }
 
 }
